@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
+from unittest import skip
 
 from .models import City
 
@@ -39,3 +40,16 @@ class WeatherViewTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertNotIn(fictional_city, response.content.decode())
+
+    def test_redirect(self):
+        url = reverse("root")
+        response = self.client.get(url, follow=False)
+        self.assertEqual(response.status_code, 301)
+
+    @skip("not implemented")
+    def test_redirect_with_city(self):
+        city_name = "Paris"
+        url = add_url_city(reverse("root"), city_name)
+        response = self.client.get(url, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(city_name, response.content.decode())

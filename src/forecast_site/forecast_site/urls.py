@@ -17,8 +17,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from django.shortcuts import redirect
+from django.http import HttpRequest
+
+
+def redirect_to_weather(request: HttpRequest):
+    return redirect("weather:index", permanent=True)  # , kwargs=request)
+
 
 urlpatterns = [
-    path("weather/", include("root.urls")),
+    path("", redirect_to_weather, name="root"),
+    path("weather/", include("weather.urls")),
     path("admin/", admin.site.urls),
 ]

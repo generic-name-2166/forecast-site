@@ -11,11 +11,11 @@ def index(request: HttpRequest):
         city_name: str = request.GET["city"]  # type: ignore
         city_obj: City = City.objects.get(name=city_name)
     except (KeyError, City.DoesNotExist):
-        return render(request, "root/index.html")
+        return render(request, "weather/index.html")
 
     city_obj.searches = F("searches") + 1
     city_obj.save()
 
     context: dict[str, str] = {"city_name": city_name}
 
-    return render(request, "root/index.html", context=context)
+    return render(request, "weather/index.html", context=context)

@@ -1,21 +1,22 @@
 <!doctype html>
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- <link rel="icon" type="image/svg" href="/icon.svg" /> -->
+    <link rel="icon" type="image/svg" href="{% static 'weather/icon.svg' %}">
 
     <title>Forecast Site</title>
-    <meta name="description" content="See weather forecast" />
-    <meta property="og:title" content="Countdown Timers" />
-    <meta property="og:type" content="website" />
-    <meta property="og:description" content="See weather forecast" />
+    <meta name="description" content="See weather forecast">
+    <meta property="og:title" content="Countdown Timers">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="See weather forecast">
 
-    <!-- <link rel="preload" href="/src/style.css" as="style" /> -->
+    <link rel="preload" href="{% static 'weather/style.css' %}" as="style">
     <!-- <link rel="preload" href="/src/main.ts" as="script" /> -->
 
-    <!-- <link rel="stylesheet" href="/src/style.css" /> -->
+    <link rel="stylesheet" href="{% static 'weather/style.css' %}">
   </head>
   <body>
     <div id="app">
