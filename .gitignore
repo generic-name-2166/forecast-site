@@ -6,10 +6,6 @@
 __pycache__/
 venv/
 *.egg-info
-## Pytest
-.pytest_cache/
-.coverage
-htmlcov/
 ## Linter
 .ruff_cache/
 

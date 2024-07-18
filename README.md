@@ -18,7 +18,7 @@ Website to show weather forecasts from [Open-Meteo API](https://open-meteo.com/)
 ```bash
 python -m venv venv
 venv\Scripts\Activate.ps1  # venv/bin/activate
-pip install -e ".[testing]"
+pip install -e ".[formatting]"
 python src/forecast_site/manage.py migrate
 python src/forecast_site/manage.py runserver
 ```
