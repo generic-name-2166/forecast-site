@@ -1,0 +1,23 @@
+body {
+  overflow-y: scroll;
+}
+
+.weather-row {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+}
+
+.weather-hour {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weather-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  text-wrap: nowrap;
+  text-align-last: justify;
+}
