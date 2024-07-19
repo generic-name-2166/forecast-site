@@ -1,6 +1,7 @@
 from django.db.models import F, Q
 from django.shortcuts import render
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseRedirect
+from django.urls import reverse
 from datetime import datetime, timezone
 from typing import Optional
 
@@ -67,3 +68,11 @@ def index(request: HttpRequest):
     }
 
     return render(request, "weather/index.html", context=context)
+
+
+def redirect_to_weather(request: HttpRequest):
+    city = request.GET.get("city", None)
+    print(f"{city=}")
+    base: str = reverse("weather:index")
+    url = base if city is None else f"{base}?city={city}"
+    return HttpResponseRedirect(url)

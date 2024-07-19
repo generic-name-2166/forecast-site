@@ -21,9 +21,9 @@
   <body>
     <div id="app">
       <header>
-        <form method="GET">
-          <label id="city">Enter a city name</label>
-          <input type="search" id="city">
+        <form method="GET" action="{% url 'weather:city' %}">
+          <label for="city">Enter a city name</label>
+          <input type="search" name="city" id="city">
           <button type="submit">Search</button>
         </form>
       </header>

@@ -6,4 +6,5 @@ app_name = "weather"
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("city/", views.redirect_to_weather, name="city"),
 ]

@@ -17,12 +17,15 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
-from django.shortcuts import redirect
-from django.http import HttpRequest
+from django.urls import reverse
+from django.http import HttpRequest, HttpResponsePermanentRedirect
 
 
 def redirect_to_weather(request: HttpRequest):
-    return redirect("weather:index", permanent=True)  # , kwargs=request)
+    city = request.GET.get("city", None)
+    base: str = reverse("weather:index")
+    url = base if city is None else f"{base}?city={city}"
+    return HttpResponsePermanentRedirect(url)
 
 
 urlpatterns = [
