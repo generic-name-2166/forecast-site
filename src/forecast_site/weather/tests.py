@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
-from unittest import skip
+from django.db.models import Q
 
 from .models import City
 
@@ -16,6 +16,10 @@ class CityModelTests(TestCase):
     def test_getting_city_by_name(self):
         city_name = "Paris"
         _city_obj = City.objects.get(name=city_name)
+
+    def test_excluding_city(self):
+        city_name = "Paris"
+        _cities = City.objects.filter(~Q(name=city_name))
 
 
 class WeatherViewTests(TestCase):
@@ -45,7 +49,6 @@ class WeatherViewTests(TestCase):
         response = self.client.get(url, follow=False)
         self.assertEqual(response.status_code, 301)
 
-    @skip("not implemented")
     def test_redirect_with_city(self):
         city_name = "Paris"
         url = add_url_city(reverse("root"), city_name)
