@@ -14,7 +14,7 @@
     <meta property="og:description" content="See weather forecast">
 
     <link rel="preload" href="{% static 'weather/style.css' %}" as="style">
-    <!-- <link rel="preload" href="/src/main.ts" as="script" /> -->
+    <link rel="preload" href="{% static 'weather/main.js' %}" as="script" />
 
     <link rel="stylesheet" href="{% static 'weather/style.css' %}">
   </head>
@@ -33,6 +33,6 @@
       </main>
     </div>
 
-    <!-- <script type="module" src="/src/main.ts"></script> -->
+    <script defer type="module" src="{% static 'weather/main.js' %}"></script>
   </body>
 </html>

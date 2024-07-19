@@ -4,7 +4,7 @@ Website to show weather forecasts from [Open-Meteo API](https://open-meteo.com/)
 
 # Additional features
 
-- [ ] Tests
+- [x] Tests
 - [ ] Dockerized
 - [ ] Autocomplete
 - [ ] Previously visited city suggestion
@@ -20,5 +20,6 @@ python -m venv venv
 venv\Scripts\Activate.ps1  # venv/bin/activate
 pip install -e ".[formatting]"
 python src/forecast_site/manage.py migrate
+python src/forecast_site/manage.py loaddata fixture city.json
 python src/forecast_site/manage.py runserver
 ```
