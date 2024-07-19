@@ -9,29 +9,37 @@
   {% for city in cities.items %}
     <article>
       <h2>{{ city.0 }}</h2>
-      <div class="weather-row">
-        {% for hour in city.1.items %}
-          <section class="weather-hour">
-            <p>{{ hour.0|time:"H:i" }}</p>
 
-            <div>
-              {% if hour.1.precipitation_probability > 70 %}
-                <img src="{% static 'weather/images/Cloud drizzle.svg' %}">
-              {% elif hour.1.precipitation_probability > 30 %}
-                <img src="{% static 'weather/images/Cloud.svg' %}">
-              {% else %}
-                <img src="{% static 'weather/images/Sun.svg' %}">
-              {% endif %}
-            </div>
+      <div class="weather-controls">
+        <button type="button"><img src="{% static 'weather/leftarrow.svg' %}"></button>
 
-            <div class="weather-info">
-              <span>Temperature: {{ hour.1.temperature_2m }}°C</span>
-              <span>Feels like {{ hour.1.apparent_temperature }}°C</span>
-              <span>Humidity: {{ hour.1.relative_humidity_2m }}%</span>
-              <span>Precipation: {{ hour.1.precipitation_probability }}%</span>
-            </div>
-          </section>
-        {% endfor %}
+        <div class="weather-row">
+          {% for hour in city.1.items %}
+            <section class="weather-hour">
+              <p>{{ hour.0|time:"H:i" }}</p>
+  
+              <div>
+                {% if hour.1.precipitation_probability > 70 %}
+                  <img src="{% static 'weather/images/Cloud drizzle.svg' %}">
+                {% elif hour.1.precipitation_probability > 30 %}
+                  <img src="{% static 'weather/images/Cloud.svg' %}">
+                {% else %}
+                  <img src="{% static 'weather/images/Sun.svg' %}">
+                {% endif %}
+              </div>
+  
+              <div class="weather-info">
+                <span>Temperature: {{ hour.1.temperature_2m }}°C</span>
+                <span>Feels&nbsp;like {{ hour.1.apparent_temperature }}°C</span>
+                <span>Humidity: {{ hour.1.relative_humidity_2m }}%</span>
+                <span>Precipation: {{ hour.1.precipitation_probability }}%</span>
+              </div>
+            </section>
+          {% endfor %}
+        </div>
+
+        
+        <button type="button"><img src="{% static 'weather/rightarrow.svg' %}"></button>
       </div>
     </article>
   {% endfor %}
