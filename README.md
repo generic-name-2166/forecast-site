@@ -7,7 +7,7 @@ Website to show weather forecasts from [Open-Meteo API](https://open-meteo.com/)
 - [x] Tests
 - [ ] Dockerized
 - [ ] Autocomplete
-- [ ] Previously visited city suggestion
+- [x] Previously visited city suggestion
 - [ ] Search history
     - [ ] Show search count per city
 

@@ -21,7 +21,7 @@
   <body>
     <div id="app">
       <header>
-        <form method="GET" action="{% url 'weather:city' %}">
+        <form method="GET" action="{% url 'weather:city' %}" class="search-city">
           <label for="city">Enter a city name</label>
           <input type="search" name="city" id="city">
           <button type="submit">Search</button>

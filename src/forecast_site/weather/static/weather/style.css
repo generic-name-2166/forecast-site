@@ -9,6 +9,8 @@ body {
 
 button {
   font-family: inherit;
+  background-color: #444;
+  color: #eee;
 }
 
 button:hover {
@@ -24,6 +26,12 @@ button:active {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+header {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 1rem;
 }
 
 main {
@@ -87,8 +95,6 @@ main {
   margin: 0.5rem;
   height: 2em;
   border: 1px solid #222;
-  background-color: #444;
-  color: #eee;
 }
 
 .hidden {

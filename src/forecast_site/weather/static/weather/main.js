@@ -24,7 +24,7 @@ function saveCity() {
   const url = new URL(window.location.href);
   const city = url.searchParams.get("city");
 
-  if (city === null || !storageAvailable("localStorage")) {
+  if (!city || !storageAvailable("localStorage")) {
     return true;
   }
 
@@ -70,11 +70,55 @@ function showSelectedDay() {
   days[previous]?.classList.toggle("hidden");
 }
 
+function showPopup() {
+  const city = localStorage.getItem("city");
+
+  if (!city) {
+    return;
+  }
+
+  const search = document.querySelector(".search-city");
+  
+  const form = document.createElement("form");
+  form.method = "GET";
+  form.action = search.action;
+  
+  const input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "city";
+  input.value = city;
+
+  const p = document.createElement("span");
+  p.textContent = `Would you like to select ${city}?`;
+
+  const yes = document.createElement("button");
+  yes.type = "submit";
+  yes.textContent = "Yes";
+
+  const no = document.createElement("button");
+  no.type = "button";
+  no.textContent = "No";
+  no.addEventListener("click", () => {
+    localStorage.clear();
+
+    p.remove();
+    yes.remove();
+    no.remove();
+    form.remove();
+  });
+
+  form.appendChild(input);
+  form.appendChild(p);
+  form.appendChild(yes);
+  form.appendChild(no);
+
+  search.after(form);
+}
+
 function main() {
-  const showPopup = saveCity();
-  if (!showPopup) {
-    const city = localStorage.getItem("city");
-    // TODO
+  const show = saveCity();
+  if (show) {
+    showPopup();
   }
   addScrollButtons();
   showSelectedDay();
