@@ -15,7 +15,6 @@ class CityModelTests(TestCase):
 
     def test_getting_city_by_name(self):
         city_name = "Paris"
-        print(City.objects.all())
         _city_obj = City.objects.get(name=city_name)
 
 

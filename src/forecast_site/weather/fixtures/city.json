@@ -1,1 +1,1 @@
-[{"model": "weather.city", "pk": 1, "fields": {"name": "Paris", "searches": 0}}]
+[{"model": "weather.city", "pk": 1, "fields": {"name": "Berlin", "searches": 0, "latitude": 52.52, "longitude": 13.405}}, {"model": "weather.city", "pk": 2, "fields": {"name": "Paris", "searches": 0, "latitude": 48.8575, "longitude": 2.3514}}]
