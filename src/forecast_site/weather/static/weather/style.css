@@ -1,6 +1,8 @@
 body {
   overflow-y: scroll;
   font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   color: #eee;
   background-color: #333;
 }
@@ -9,9 +11,28 @@ button {
   font-family: inherit;
 }
 
+button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+button:active {
+  outline: 0.2rem solid #111;
+}
+
+#app {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  width: 80%;
+}
+
 .weather-controls {
   display: grid;
-  grid-template-columns: 5% 1fr 5%;
+  grid-template-columns: auto 1fr auto;
 }
 
 .weather-controls > * {
@@ -23,14 +44,6 @@ button {
   display: block;
   background-color: transparent;
   border-color: #222;
-}
-
-.weather-controls > button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.weather-controls > button:active {
-  outline: 0.2rem solid #222;
 }
 
 .weather-row {
@@ -55,4 +68,29 @@ button {
   grid-template-columns: 1fr;
   text-wrap: nowrap;
   text-align-last: justify;
+}
+
+.selected-day {
+  display: grid;
+  grid-template-areas: 
+    "a b"
+    "c c";
+}
+
+.selected-week {
+  display: flex;
+  flex-direction: row;
+}
+
+.selected-select {
+  flex: 1 1 0;
+  margin: 0.5rem;
+  height: 2em;
+  border: 1px solid #222;
+  background-color: #444;
+  color: #eee;
+}
+
+.hidden {
+  display: none;
 }

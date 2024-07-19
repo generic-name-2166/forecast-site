@@ -4,14 +4,63 @@
 
 {% block main %}
   {% if selected_city %}
-    <h1>{{ selected_city.name }}</h1>
+    <article>
+      <h1>{{ selected_city.name }}</h1>
+
+      {% for day in selected_city.days.items %}
+        <div class="selected-day hidden">
+          <p>{{ day.0|date:"D d M" }}</p>
+        
+          <div>
+            {% if day.0.precipitation_probability > 70 %}
+              <img src="{% static 'weather/images/Cloud drizzle.svg' %}">
+            {% elif day.0.precipitation_probability > 30 %}
+              <img src="{% static 'weather/images/Cloud.svg' %}">
+            {% else %}
+              <img src="{% static 'weather/images/Sun.svg' %}">
+            {% endif %}
+          </div>
+
+          <section class="weather-row">
+            {% for hour in day.1.items %}
+              <div class="weather-hour">
+                <span>Time: {{ hour.0|time }}</span>
+          
+                <div>
+                  {% if hour.1.precipitation_probability > 70 %}
+                    <img src="{% static 'weather/images/Cloud drizzle.svg' %}">
+                  {% elif hour.1.precipitation_probability > 30 %}
+                    <img src="{% static 'weather/images/Cloud.svg' %}">
+                  {% else %}
+                    <img src="{% static 'weather/images/Sun.svg' %}">
+                  {% endif %}
+                </div>
+
+                <div class="weather-info">
+                  <span>Temperature: {{ hour.1.temperature_2m }}°C</span>
+                  <span>Feels&nbsp;like {{ hour.1.apparent_temperature }}°C</span>
+                  <span>Humidity: {{ hour.1.relative_humidity_2m }}%</span>
+                  <span>Precipation: {{ hour.1.precipitation_probability }}%</span>
+                </div>
+              </div>
+            {% endfor %}
+          </section>
+        </div>
+      {% endfor %}
+      
+      <section class="selected-week">
+        {% for day in selected_city.days.items %}
+          <button type="button" class="selected-select">{{ day.0|date }}</button>
+        {% endfor %}
+    </section>
+    </article>
   {% endif %}
   {% for city in cities.items %}
     <article>
       <h2>{{ city.0 }}</h2>
 
       <div class="weather-controls">
-        <button type="button"><img src="{% static 'weather/leftarrow.svg' %}"></button>
+        <button type="button" class="left"><img src="{% static 'weather/leftarrow.svg' %}"></button>
 
         <div class="weather-row">
           {% for hour in city.1.items %}
@@ -37,9 +86,8 @@
             </section>
           {% endfor %}
         </div>
-
         
-        <button type="button"><img src="{% static 'weather/rightarrow.svg' %}"></button>
+        <button type="button" class="right"><img src="{% static 'weather/rightarrow.svg' %}"></button>
       </div>
     </article>
   {% endfor %}

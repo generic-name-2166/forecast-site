@@ -35,14 +35,39 @@ function saveCity() {
 }
 
 function addScrollButtons() {
-  const [left, right] = document.querySelectorAll(".weather-controls > button");
-  const row = document.querySelector(".weather-row");
-  left.addEventListener("click", () => {
-    row.scrollLeft -= 100;
-  });
-  right.addEventListener("click", () => {
-    row.scrollLeft += 100;
-  });
+  const leftButtons = document.querySelectorAll(".weather-controls > .left");
+  const rightButtons = document.querySelectorAll(".weather-controls > .right");
+  const rows = document.querySelectorAll(".weather-controls .weather-row");
+  
+  for (let i = 0; i < leftButtons.length; i++) {
+    const left = leftButtons[i];
+    const right = rightButtons[i];
+    const row = rows[i];
+    left.addEventListener("click", () => {
+      row.scrollLeft -= 100;
+    });
+    right.addEventListener("click", () => {
+      row.scrollLeft += 100;
+    });
+  }
+}
+
+function showSelectedDay() {
+  let previous = 0;
+  const days = document.querySelectorAll(".selected-day");
+  const options = document.querySelectorAll(".selected-select");
+
+  const toggle = (index) => () => {
+    days[previous].classList.toggle("hidden");
+    days[index].classList.toggle("hidden");
+    previous = index;
+  };
+
+  for (let i = 0; i < options.length; i++) {
+    options[i].addEventListener("click", toggle(i));
+  }
+
+  days[previous]?.classList.toggle("hidden");
 }
 
 function main() {
@@ -52,6 +77,7 @@ function main() {
     // TODO
   }
   addScrollButtons();
+  showSelectedDay();
 }
  
 main()

@@ -3,7 +3,9 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import reverse
 from datetime import datetime, timezone
+import itertools
 from typing import Optional
+from collections.abc import Iterator
 
 from .models import City
 from .api import ApiProxy, ApiResponse, WeatherVariable, Variables
@@ -12,6 +14,7 @@ from .api import ApiProxy, ApiResponse, WeatherVariable, Variables
 type _CityName = str
 type WeatherView = dict[datetime, dict[WeatherVariable, int | float]]
 type WeatherViews = dict[_CityName, WeatherView]
+type SelectedView = dict[datetime, WeatherView]
 
 
 def _transpose_response(resp: ApiResponse) -> WeatherView:
@@ -43,6 +46,20 @@ def _transpose_responses(cities: dict[_CityName, ApiResponse], exclude: Optional
     return views
 
 
+def _format_day(day: list[tuple[datetime, dict[WeatherVariable, int | float]]]) -> tuple[datetime, dict[datetime, dict[WeatherVariable, int | float]]]:
+    # for displaying the date
+    hour = day[0][0]
+    picked_hours = dict(day[::3])
+    return (hour, picked_hours)
+
+
+def _batch_days(view: WeatherView) -> SelectedView:
+    hours = view.items()
+    days: Iterator[list[tuple[datetime, dict[WeatherVariable, int | float]]]] = map(list, itertools.batched(hours, 24))
+    result = dict(map(_format_day, days))
+    return result
+
+
 def index(request: HttpRequest):
     proxy = ApiProxy()
     cities = City.objects.all()
@@ -62,8 +79,13 @@ def index(request: HttpRequest):
     city_obj.searches = F("searches") + 1
     city_obj.save()
 
-    context: dict[str, City | WeatherViews] = {
-        "selected_city": city_obj,
+    selected_city = {
+        "name": city_name,
+        "days": _batch_days(_transpose_response(responses[city_name])),
+    }
+
+    context: dict[str, dict[str, str | SelectedView] | WeatherViews] = {
+        "selected_city": selected_city,
         "cities": views,
     }
 
