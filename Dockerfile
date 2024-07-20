@@ -16,4 +16,4 @@ RUN python manage.py loaddata city.json
 
 EXPOSE 8000
 
-ENTRYPOINT [ "python", "-m", "uvicorn", "forecast_site.asgi:application" ]
+ENTRYPOINT [ "python", "-m", "uvicorn", "forecast_site.asgi:application", "--host", "0.0.0.0" ]
